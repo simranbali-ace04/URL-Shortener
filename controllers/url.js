@@ -11,7 +11,9 @@ async function handleGenerateShortUrl(req, res) {
     visitHistory: [],
   });
 
-  return res.status(200).json({ id: shortId });
+  return res.render("home", {
+    id: shortId,
+  });
 }
 
 async function handleRedirect(req, res) {
@@ -31,13 +33,13 @@ async function handleRedirect(req, res) {
   res.redirect(entry.redirectUrl);
 }
 
-async function handleGetAnaytics(req, res){
-    const shortId = req.params.id;
-    const result = await Url.findOne({shortId});
-    return res.json({
-        totalClicks: result.visitHistory.length,
-        analytics: result.visitHistory,
-    });
+async function handleGetAnaytics(req, res) {
+  const shortId = req.params.id;
+  const result = await Url.findOne({ shortId });
+  return res.json({
+    totalClicks: result.visitHistory.length,
+    analytics: result.visitHistory,
+  });
 }
 
 module.exports = {
