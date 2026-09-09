@@ -5,6 +5,7 @@ const Url = require("./models/url.js");
 const PORT = 8001;
 const staticRouter = require("./routes/staticRouter.js")
 const urlRoutes = require("./routes/url.js");
+const userRoutes = require("./routes/user.js");
 const connectDB = require("./config/db.js");
 
 connectDB("mongodb://127.0.0.1:27017/url-shortener")
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended: false}));
 app.get("/", staticRouter);
 
 app.use("/url", urlRoutes);
+app.use("/user", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server connected at PORT ${PORT}`);
