@@ -17,6 +17,9 @@ async function handleUserLogin(req, res){
     const user = await User.findOne({email});
     if(!user) return res.status(401). json({error: "The user with this email doesn't exist."});
     if(password===user.password){
+        const sessionId = uuidv4();
+        setUser(sessionId, user);
+        res.cookie("uid", sessionId);
         return res.redirect("/");
     } else {
         return res.status(401).json({error: "The password is wrong"});
